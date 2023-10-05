@@ -1,3 +1,3 @@
-module cli.com/main
+module go_cli/templateCreator
 
 go 1.21.1

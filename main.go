@@ -4,30 +4,27 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
-	var selectedTemplate int
+	var selectedTemplate string
 	var projectTitle string
-	fmt.Println("Please Select your template:")
-	fmt.Printf("1- %s\n2- %s\nYour choice: ", "HTML and standard CSS", "HTML Boilerplate")
-
-	_, err := fmt.Scanln(&selectedTemplate)
-	if err != nil {
-		log.Fatalf("Error reading input: %s", err)
+	if len(os.Args) < 2 {
+		log.Fatal("You haven't pass any arguments!")
+	} else if len(os.Args) < 3 {
+		log.Fatal("You Haven't enter your project title!")
 	}
-
-	fmt.Println("What is your project title? ")
-	_, err = fmt.Scanln(&projectTitle)
-	if err != nil {
-		log.Fatalf("Error reading input: %s", err)
-	}
+	selectedTemplate = strings.ToLower(os.Args[1])
+	projectTitle = os.Args[2]
 
 	switch selectedTemplate {
-	case 1:
+	case "html-css":
 		htmlCss(projectTitle)
-	case 2:
+	case "html":
 		html(projectTitle, true)
+	default:
+		log.Fatal("Your desired template is not supported! (available choices: html and html-css)")
 	}
 }
 
